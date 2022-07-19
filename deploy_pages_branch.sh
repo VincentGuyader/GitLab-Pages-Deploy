@@ -62,9 +62,9 @@ cd $HOME/branch/
 git config --global user.name "$GITLAB_USER_LOGIN"
 git config --global user.email "$GITLAB_USER_EMAIL"
 
-if [ -z "$(git ls-remote --heads https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH})" ]; then
+if [ -z "$(git ls-remote --heads http://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH})" ]; then
   echo "Create branch '${TARGET_BRANCH}'"
-  git clone --quiet https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH} > /dev/null
+  git clone --quiet http://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH} > /dev/null
   cd $TARGET_BRANCH
   git checkout --orphan $TARGET_BRANCH
   git rm -rf .
@@ -76,7 +76,7 @@ if [ -z "$(git ls-remote --heads https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}
 else
   echo "Clone branch '${TARGET_BRANCH}'"
   # git clone --quiet --branch=$TARGET_BRANCH https://${GITHUB_ACTOR}:${PROJECT_ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git $TARGET_BRANCH > /dev/null
-  git clone --quiet --branch=$TARGET_BRANCH https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH} > /dev/null
+  git clone --quiet --branch=$TARGET_BRANCH http://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git ${TARGET_BRANCH} > /dev/null
 fi
 
 
@@ -153,7 +153,7 @@ else
   git commit -m "$INPUT_COMMIT_MESSAGE"
   # git push -fq origin $TARGET_BRANCH > /dev/null
   # git push "https://gitlab-ci-token:$PROJECT_ACCESS_TOKEN@$CI_SERVER_HOST/$CI_PROJECT_PATH.git"
-  git push -fq "https://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" $TARGET_BRANCH > /dev/null
+  git push -fq "http://gitlab-ci-token:${PROJECT_ACCESS_TOKEN}@${CI_SERVER_HOST}/${CI_PROJECT_PATH}.git" $TARGET_BRANCH > /dev/null
 
   # push is OK?
   if [ $? = 0 ]
